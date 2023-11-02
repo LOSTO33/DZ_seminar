@@ -80,11 +80,42 @@ def search_contact():
 
 
 def changes_contact():
-    last_name = input("Ведите Имя и фамилию контакта : ")
-    if last_name in contact_list:
-        new_name = input("Введите новый ")
-        contact_list[last_name] = new_name
-        print(contact_list)
+    changes_name = {0}
+    changes_surname = {1}
+    changes_patronymic = {2}
+    changes_phone = {3}
+    changes_address = {4}
+    print("Варианты изминения:\n"
+        "1.По фамилии\n"
+        "2.По имени\n"
+        "3.По отчеству\n"
+        "4.По телефону\n"
+        "5.По адресу\n")
+    changes_index = input("Выберите пункт: ")
+    while changes_index not in ("1", "2", "3", "4","5"):
+        print("Некоректные ввод повториет запрос ")
+    
+    i_search = int(changes_index)-1
+    search = input("Ввведите данные контакта: ").lower()
+    print()
+
+    with open("phonebook.txt","r",encoding="utf-8") as file:
+        contacts_list = file.read().rstrip().split("\n\n")
+        print (contacts_list)
+        
+    check_cont = False
+    for contact_str in contacts_list:
+        lst_contact = contact_str.lower().replace("\n", " ").split()
+        print (lst_contact)
+        if search in lst_contact[i_search]:
+            print (contact_str)
+            print()
+            check_cont = True
+
+    if not check_cont:
+        print("Такого контакта нет.")
+
+
 
 
 
@@ -117,7 +148,7 @@ def interface():
                 search_contact()
             case "4":
                 changes_contact()
-            case "5"
+            case "5":
                 delete_contact()
             case "6":
                 print("Завершение программы")
