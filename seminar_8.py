@@ -80,11 +80,11 @@ def search_contact():
 
 
 def changes_contact():
-    changes_name = {0}
-    changes_surname = {1}
-    changes_patronymic = {2}
-    changes_phone = {3}
-    changes_address = {4}
+    changes_name = [0]
+    changes_surname = [1]
+    changes_patronymic = [2]
+    changes_phone = [3]
+    changes_address = [4]
     print("Варианты изминения:\n"
         "1.По фамилии\n"
         "2.По имени\n"
@@ -114,6 +114,9 @@ def changes_contact():
 
     if not check_cont:
         print("Такого контакта нет.")
+
+
+
 
 
 
