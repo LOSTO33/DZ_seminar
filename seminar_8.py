@@ -78,28 +78,43 @@ def search_contact():
         print("Такого контакта нет.")
 
 
-
 def changes_contact():
-    changes_name = [0]
-    changes_surname = [1]
-    changes_patronymic = [2]
-    changes_phone = [3]
-    changes_address = [4]
+    """
+    Находим имя в справочнике номеров
+    :return:
+    """
+    #TODO: Напиши функцию для записи всей иформации в список списков что бы получилось
+    # [
+    #   ["Петров", "Петр", "Петрович", "8475"],
+    #   ["Семенов", "Петр", "Иванович", "852"]
+    # ]
+    # после этого находишь нужную запись и меняешь ее с помощью индекса
+    #
     print("Варианты изминения:\n"
         "1.По фамилии\n"
         "2.По имени\n"
         "3.По отчеству\n"
         "4.По телефону\n"
         "5.По адресу\n")
-    changes_index = input("Выберите пункт: ")
-    while changes_index not in ("1", "2", "3", "4","5"):
+    enter_users = input("Выберите пункт: ")
+    changes_index = None
+    if enter_users not in ("1", "2", "3", "4", "5"):
         print("Некоректные ввод повториет запрос ")
-    
-    i_search = int(changes_index)-1
-    search = input("Ввведите данные контакта: ").lower()
-    print()
+    elif enter_users == "1":
+        changes_index = 0
+    elif enter_users == "2":
+        changes_index = 1
+    elif enter_users == "3":
+        changes_index = 2
+    elif enter_users == "4":
+        changes_index = 3
+    elif enter_users == "5":
+        changes_index = 4
 
-    with open("phonebook.txt","r",encoding="utf-8") as file:
+    i_search = changes_index
+    search = input("Ввведите данные контакта: ").lower()
+
+    with open("phonebook.txt", "r", encoding="utf-8") as file:
         contacts_list = file.read().rstrip().split("\n\n")
         print (contacts_list)
         
@@ -116,12 +131,8 @@ def changes_contact():
         print("Такого контакта нет.")
 
 
-
-
-
-
-
-
+def delete_contact():
+    pass
 
 
 def interface():
