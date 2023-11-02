@@ -79,7 +79,12 @@ def search_contact():
 
 
 
-
+def changes_contact():
+    last_name = input("Ведите Имя и фамилию контакта : ")
+    if last_name in contact_list:
+        new_name = input("Введите новый ")
+        contact_list[last_name] = new_name
+        print(contact_list)
 
 
 
@@ -90,15 +95,17 @@ def interface():
         pass
     command = ""
     os.system("cls")
-    while command !="4":
+    while command !="6":
         print("Меню пользователя:\n"
             "1.Вывод данных на экран\n"
             "2.Добавить контакт\n"
             "3.Поиск контакта\n"
-            "4.Выход\n")
+            "4.Изменть контакт\n"
+            "5.Удалить контакт\n"
+            "6.Выход\n")
         command = input("Выбериет пункт меню: ")
         
-        while command not in ("1", "2", "3", "4"):
+        while command not in ("1", "2", "3", "4","5","6"):
             print("Некоректные ввод повториет запрос ")
             command = input("Ввыбериет пункт меню ")
         match command:
@@ -109,6 +116,10 @@ def interface():
             case "3":
                 search_contact()
             case "4":
+                changes_contact()
+            case "5"
+                delete_contact()
+            case "6":
                 print("Завершение программы")
         print()
 
