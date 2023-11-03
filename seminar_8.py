@@ -78,50 +78,72 @@ def search_contact():
         print("Такого контакта нет.")
 
 
+def read_file(file_name):
+    with open(file_name,"r",encoding="utf-8") as f:
+        info_from_file = f.read()
+    list_result = []
+    for line in info_from_file.split("\n\n"):
+        name_and_number = line.split("\n")[0].split(" ")
+        city = line.split("\n")[1]
+        name_and_number.append(city)
+        list_result.append(name_and_number)
+    return list_result
 
 def changes_contact():
-    changes_name = [0]
-    changes_surname = [1]
-    changes_patronymic = [2]
-    changes_phone = [3]
-    changes_address = [4]
-    print("Варианты изминения:\n"
-        "1.По фамилии\n"
-        "2.По имени\n"
-        "3.По отчеству\n"
-        "4.По телефону\n"
-        "5.По адресу\n")
-    changes_index = input("Выберите пункт: ")
-    while changes_index not in ("1", "2", "3", "4","5"):
-        print("Некоректные ввод повториет запрос ")
-    
-    i_search = int(changes_index)-1
-    search = input("Ввведите данные контакта: ").lower()
-    print()
+    file_name = "phonebook.txt"
+    enter_users = input("введите фамилию имя и отчество контакта: ").lower().split(" ")
+    dict_phone_number = read_file(file_name)
+    print(dict_phone_number)
 
-    with open("phonebook.txt","r",encoding="utf-8") as file:
-        contacts_list = file.read().rstrip().split("\n\n")
-        print (contacts_list)
+def search_in_list():
+    pass
+
+
+
+
+
+    # print("Варианты изминения:\n"
+    #     "1.По фамилии\n"
+    #     "2.По имени\n"
+    #     "3.По отчеству\n"
+    #     "4.По телефону\n"
+    #     "5.По адресу\n")
+    # enter_users = input("Выберите пункт: ")
+    # changes_index = None
+    # if enter_users not in ("1", "2", "3", "4", "5"):
+    #     print("Некоректные ввод повториет запрос ")
+    # elif enter_users == "1":
+    #     changes_index = 0
+    # elif enter_users == "2":
+    #     changes_index = 1
+    # elif enter_users == "3":
+    #     changes_index = 2
+    # elif enter_users == "4":
+    #     changes_index = 3
+    # elif enter_users == "5":
+    #     changes_index = 4
+
+    # i_search = changes_index
+    # search = input("Ввведите данные контакта: ").lower()
+    # # with open("phonebook.txt", "r", encoding="utf-8") as file:
+    # #     contacts_list = file.read().rstrip().split("\n\n")
+    # #     print (contacts_list)
         
-    check_cont = False
-    for contact_str in contacts_list:
-        lst_contact = contact_str.lower().replace("\n", " ").split()
-        print (lst_contact)
-        if search in lst_contact[i_search]:
-            print (contact_str)
-            print()
-            check_cont = True
+    # check_cont = False
+    # for contact_str in contacts_list:
+    #     lst_contact = contact_str.lower().replace("\n", " ").split()
+    #     print (lst_contact)
+    #     if search in lst_contact[i_search]:
+    #         print (contact_str)
+    #         print()
+    #         check_cont = True
 
-    if not check_cont:
-        print("Такого контакта нет.")
-
-
+    # if not check_cont:
+    #     print("Такого контакта нет.")
 
 
-
-
-
-
+def delete_contact():
+    pass
 
 
 def interface():
