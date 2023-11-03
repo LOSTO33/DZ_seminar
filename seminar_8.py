@@ -68,7 +68,7 @@ def search_contact():
         
     check_cont = False
     for contact_str in contacts_list:
-        lst_contact = contact_str.lower().replace("\n", " ").split() 
+        lst_contact = contact_str.lower().replace("\n"," ").split() 
         if search in lst_contact[i_search]:
             print (contact_str)
             print()
@@ -80,7 +80,7 @@ def search_contact():
 
 def read_file(file_name):
     with open(file_name,"r",encoding="utf-8") as f:
-        info_from_file = f.read()
+        info_from_file = f.read().lower()
     list_result = []
     for line in info_from_file.split("\n\n"):
         name_and_number = line.split("\n")[0].split(" ")
@@ -91,37 +91,85 @@ def read_file(file_name):
 
 def changes_contact():
     file_name = "phonebook.txt"
-    enter_users = input("введите фамилию имя и отчество контакта: ").lower().split(" ")
+    enter_users = input("введите фамилию или имя или отчество контакта: ").lower()
     dict_phone_number = read_file(file_name)
-    print(dict_phone_number)
-
-def search_in_list():
-    pass
-
-
+    row_number = search_in_list(dict_phone_number,enter_users)
+    if row_number is None:
+        print("Не удалось найти запись")
+        return
 
 
+    print("Варианты изминения:\n"
+        "1.По фамилии\n"
+        "2.По имени\n"
+        "3.По отчеству\n"
+        "4.По телефону\n"
+        "5.По адресу\n")
+    enter_users = input("Выберите пункт: ")
+    changes_index = None
+    if enter_users not in ("1", "2", "3", "4", "5"):
+        print("Некоректные ввод повториет запрос ") 
+        return
+    else:
+        changes_index = int(enter_users)-1
+    new_data = input("Введите новые данные: ")
+    change_list = change_data(dict_phone_number, row_number,changes_index,new_data)
+    
+    write_file(change_list)
 
-    # print("Варианты изминения:\n"
-    #     "1.По фамилии\n"
-    #     "2.По имени\n"
-    #     "3.По отчеству\n"
-    #     "4.По телефону\n"
-    #     "5.По адресу\n")
+
+def search_in_list(info,key_search):
+    for row in range(0,len(info)-1):
+        for column in range(0,len(info[row])-1):
+            if info[row][column] == key_search:
+                return row
+    return None
+def write_file(change_list):
+    result_str = ""
+    for row in change_list:
+        if row[0] is None:
+            continue
+        result_str += " ".join(row[:4])+"\n"
+        print (row)
+        result_str += row[4:5]+"\n\n"
+        print(result_str.title())
+
+
+def change_data(info,row_number,changes_index,new_data):
+    info[row_number][changes_index] = new_data
+    return info
+            
+
+
+
+
+
+    # enter_users = input("введите фамилию имя и отчество контакта: ").lower().split(" ")
+
+
+
+
+
+    print("Варианты изминения:\n"
+        "1.По фамилии\n"
+        "2.По имени\n"
+        "3.По отчеству\n"
+        "4.По телефону\n"
+        "5.По адресу\n")
     # enter_users = input("Выберите пункт: ")
     # changes_index = None
-    # if enter_users not in ("1", "2", "3", "4", "5"):
-    #     print("Некоректные ввод повториет запрос ")
-    # elif enter_users == "1":
-    #     changes_index = 0
-    # elif enter_users == "2":
-    #     changes_index = 1
-    # elif enter_users == "3":
-    #     changes_index = 2
-    # elif enter_users == "4":
-    #     changes_index = 3
-    # elif enter_users == "5":
-    #     changes_index = 4
+    if enter_users not in ("1", "2", "3", "4", "5"):
+        print("Некоректные ввод повториет запрос ")
+    elif enter_users == "1":
+        changes_index = 0
+    elif enter_users == "2":
+        changes_index = 1
+    elif enter_users == "3":
+        changes_index = 2
+    elif enter_users == "4":
+        changes_index = 3
+    elif enter_users == "5":
+        changes_index = 4
 
     # i_search = changes_index
     # search = input("Ввведите данные контакта: ").lower()
